@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+  <infNFe versao="4.00" Id="NFe12345678901234567890123456789012345678901234">
+    <ide>
+      <cUF>35</cUF>
+      <cNF></cNF>
+      <natOp>VENDA</natOp>
+      <mod>65</mod>
+      <serie>4</serie>
+      <nNF></nNF>
+      <dhEmi></dhEmi>
+      <tpNF>1</tpNF>
+      <idDest>1</idDest>
+      <cMunFG>3550308</cMunFG>
+      <tpImp>5</tpImp>
+      <tpEmis>0</tpEmis>
+      <cDV>0</cDV>
+      <tpAmb>0</tpAmb>
+      <finNFe>1</finNFe>
+      <indFinal>1</indFinal>
+      <indPres>1</indPres>
+      <procEmi>0</procEmi>
+      <verProc></verProc>
+    </ide>
+    <emit>
+      <CNPJ>29720473000145</CNPJ>
+      <xNome>29.720.473 FERNANDÃ SERÂFIM ABRANTES</xNome>
+      <xFant>29.720.473 FERNANDA SERAFIM ABRANTES</xFant>
+      <enderEmit>
+        <xLgr>RUA JOAO JOSE DE QUEIROZ</xLgr>
+        <nro>111</nro>
+        <xCpl>333</xCpl>
+        <xBairro>xyz</xBairro>
+        <cMun>3550308</cMun>
+        <xMun>SAO PAULO</xMun>
+        <UF>SP</UF>
+        <CEP>03.679-000</CEP>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+      </enderEmit>
+      <IE>128237060114</IE>
+      <CRT>1</CRT>
+    </emit>
+    <det nItem="1">
+      <prod>
+        <cProd>7898928798338</cProd>
+        <cEAN>SEM GTIN</cEAN>
+        <xProd>50 BUCHA 6</xProd>
+        <NCM>68091100</NCM>
+        <CEST>0302100</CEST>
+        <indEscala>S</indEscala>
+        <CFOP>5102</CFOP>
+        <uCom>UN</uCom>
+        <qCom>1.0000</qCom>
+        <vUnCom>10.00</vUnCom>
+        <vProd>10.00</vProd>
+        <cEANTrib>SEM GTIN</cEANTrib>
+        <uTrib>UN</uTrib>
+        <qTrib>1.0000</qTrib>
+        <vUnTrib>10.00</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMSSN102>
+            <orig>3</orig>
+            <CSOSN>102</CSOSN>
+          </ICMSSN102>
+        </ICMS>
+        <PIS>
+          <PISNT>
+            <CST>04</CST>
+          </PISNT>
+        </PIS>
+        <COFINS>
+          <COFINSNT>
+            <CST>04</CST>
+          </COFINSNT>
+        </COFINS>
+        <IBSCBS>
+          <CST>000</CST>
+          <cClassTrib>001</cClassTrib>
+          <gIBSCBS>
+            <gIBSUF>
+              <pIBSUF>0.1000</pIBSUF>
+              <vIBSUF>0.10</vIBSUF>
+            </gIBSUF>
+            <gIBSMun>
+              <pIBSMun>0.0000</pIBSMun>
+              <vIBSMun>0.00</vIBSMun>
+            </gIBSMun>
+            <vIBS>0.10</vIBS>
+            <gCBS>
+              <pCBS>0.9000</pCBS>
+              <vCBS>0.90</vCBS>
+            </gCBS>
+          </gIBSCBS>
+        </IBSCBS>
+      </imposto>
+    </det>
+    <transp>
+      <modFrete>0</modFrete>
+    </transp>
+   <pag>
+  <!-- Crédito -->
+  <detPag>
+    <tPag>03</tPag>
+    <vPag>20.00</vPag>
+    <card>
+      <tpIntegra>1</tpIntegra>
+      <CNPJ>45984642000100</CNPJ>
+      <tBand>99</tBand>
+      <cAut>123456</cAut>
+    </card>
+  </detPag>
+
+  <!-- Débito -->
+  <detPag>
+    <tPag>04</tPag>
+    <vPag>20.00</vPag>
+    <card>
+      <tpIntegra>1</tpIntegra>
+      <CNPJ>45984642000100</CNPJ>
+      <tBand>99</tBand>
+      <cAut>789012</cAut>
+    </card>
+  </detPag>
+
+  <!-- Dinheiro -->
+  <detPag>
+    <tPag>01</tPag>
+    <vPag>10.00</vPag>
+  </detPag>
+</pag>
+    <infAdic>
+      <infCpl>Obrigado e volte sempre</infCpl>
+    </infAdic>
+  </infNFe>
+</NFe>

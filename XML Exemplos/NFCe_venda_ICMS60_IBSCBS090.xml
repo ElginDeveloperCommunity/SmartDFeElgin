@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+  <infNFe versao="4.00" Id="NFe12345678901234567890123456789012345678901234">
+    <ide>
+      <cUF>35</cUF>
+      <cNF></cNF>
+      <natOp>venda</natOp>
+      <mod>65</mod>
+      <serie></serie>
+      <nNF></nNF>
+      <dhEmi></dhEmi>
+      <tpNF>1</tpNF>
+      <idDest>1</idDest>
+      <cMunFG>3550308</cMunFG>
+      <tpImp>4</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>0</cDV>
+      <tpAmb>2</tpAmb>
+      <finNFe>1</finNFe>
+      <indFinal>1</indFinal>
+      <indPres>1</indPres>
+      <procEmi>0</procEmi>
+      <verProc>1.0</verProc>
+    </ide>
+    <emit>
+      <CNPJ>29720473000145</CNPJ>
+      <xNome>29.720.473 FERNANDA SERAFIM ABRANTES</xNome>
+      <xFant>29.720.473 FERNANDA SERAFIM ABRANTES</xFant>
+      <enderEmit>
+        <xLgr>RUA JOAO JOSE DE QUEIROZ</xLgr>
+        <nro>111</nro>
+        <xCpl>333</xCpl>
+        <xBairro>xyz</xBairro>
+        <cMun>3550308</cMun>
+        <xMun>SAO PAULO</xMun>
+        <UF>SP</UF>
+        <CEP>03.679-000</CEP>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+      </enderEmit>
+      <IE>128237060114</IE>
+      <IM>128237060114</IM>
+      <CRT>1</CRT>
+    </emit>
+    <det nItem="1">
+      <prod>
+        <cProd>121</cProd>
+        <cEAN>SEM GTIN</cEAN>
+        <xProd>PRODUTO TESTE 1 IBS/CBS - ICMS60</xProd>
+        <NCM>22030000</NCM>
+        <CEST>0302100</CEST>
+        <indEscala>S</indEscala>
+        <CFOP>5405</CFOP>
+        <uCom>UN</uCom>
+        <qCom>1.0000</qCom>
+        <vUnCom>100.00</vUnCom>
+        <vProd></vProd>
+        <cEANTrib>SEM GTIN</cEANTrib>
+        <uTrib>UN</uTrib>
+        <qTrib>1.0000</qTrib>
+        <vUnTrib>100.00</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMS60>
+            <orig>0</orig>
+            <CST>60</CST>
+            <vBCSTRet>100.00</vBCSTRet>
+            <pST>18.00</pST>
+            <vICMSSubstituto>18.00</vICMSSubstituto>
+            <vICMSSTRet>18.00</vICMSSTRet>
+          </ICMS60>
+        </ICMS>
+        <PIS>
+          <PISAliq>
+            <CST>01</CST>
+            <vBC>100.00</vBC>
+            <pPIS>1.65</pPIS>
+            <vPIS>1.65</vPIS>
+          </PISAliq>
+        </PIS>
+        <COFINS>
+          <COFINSAliq>
+            <CST>01</CST>
+            <vBC>100.00</vBC>
+            <pCOFINS>7.60</pCOFINS>
+            <vCOFINS>7.60</vCOFINS>
+          </COFINSAliq>
+        </COFINS>
+        <IBSCBS>
+          <CST>200</CST>
+          <cClassTrib>200047</cClassTrib>
+          <gIBSCBS>
+            <gIBSUF>
+              <pIBSUF>0.1000</pIBSUF>
+              <gDif>
+                <pDif>0.10</pDif>
+              </gDif>
+            </gIBSUF>
+            <gIBSMun>
+              <pIBSMun>0.0000</pIBSMun>
+              <gDif>
+                <pDif>0.00</pDif>
+              </gDif>
+            </gIBSMun>
+            <vIBS>0.10</vIBS>
+            <gCBS>
+              <pCBS>0.9000</pCBS>
+              <vCBS>0.90</vCBS>
+            </gCBS>
+          </gIBSCBS>
+        </IBSCBS>
+      </imposto>
+    </det>
+    <transp>
+      <modFrete>0</modFrete>
+    </transp>
+    <pag>
+      <detPag>
+        <tPag>01</tPag>
+        <vPag>100.00</vPag>
+      </detPag>
+    </pag>
+    <infAdic>
+      <infCpl>Documento emitido em ambiente de homologacao, sem valor fiscal.</infCpl>
+    </infAdic>
+  </infNFe>
+</NFe>

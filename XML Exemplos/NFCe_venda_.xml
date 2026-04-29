@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+  <infNFe versao="4.00" Id="NFe12345678901234567890123456789012345678901234">
+    <ide>
+      <cUF>31</cUF>
+      <cNF></cNF>
+      <natOp>venda</natOp>
+      <mod>65</mod>
+      <serie></serie>
+      <nNF></nNF>
+      <dhEmi></dhEmi>
+      <tpNF>1</tpNF>
+      <idDest>1</idDest>
+      <cMunFG>3151800</cMunFG>
+      <tpImp>5</tpImp>
+      <tpEmis>0</tpEmis>
+      <cDV>0</cDV>
+      <tpAmb>0</tpAmb>
+      <finNFe>1</finNFe>
+      <indFinal>1</indFinal>
+      <indPres>1</indPres>
+      <procEmi>0</procEmi>
+      <verProc></verProc>
+    </ide>
+    <emit>
+      <CNPJ>63139070000145</CNPJ>
+      <xNome>SS HAMBUERGUERIA E COMERCIO DE ALIMENTOS LTDA</xNome>
+      <xFant>PLATAFORMA SECRETA</xFant>
+      <enderEmit>
+        <xLgr>RUA SAO PAULO</xLgr>
+        <nro>272</nro>
+        <xCpl>333</xCpl>
+        <xBairro>CENTRO</xBairro>
+        <cMun>3151800</cMun>
+        <xMun>POCOS DE CALDAS</xMun>
+        <UF>MG</UF>
+        <CEP>37701752</CEP>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+      </enderEmit>
+      <IE>0053281590047</IE>
+      <IM>128237060114</IM>
+      <CRT>1</CRT>
+    </emit>
+    <det nItem="1">
+      <prod>
+        <cProd>123</cProd>
+        <cEAN>SEM GTIN</cEAN>
+        <xProd>NFCe - Homologacao</xProd>
+        <NCM>22030000</NCM>
+        <CEST>0302100</CEST>
+        <indEscala>S</indEscala>
+        <CFOP>5102</CFOP>
+        <uCom>UN</uCom>
+        <qCom>1.0000</qCom>
+        <vUnCom>1.00</vUnCom>
+        <vProd></vProd>
+        <cEANTrib>SEM GTIN</cEANTrib>
+        <uTrib>UN</uTrib>
+        <qTrib>1.0000</qTrib>
+        <vUnTrib>1.00</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMSSN102>
+            <orig>0</orig>
+            <CSOSN>102</CSOSN>
+          </ICMSSN102>
+        </ICMS>
+        <PIS>
+          <PISAliq>
+            <CST>99</CST>
+            <vBC>1.00</vBC>
+            <pPIS>1.65</pPIS>
+            <vPIS>0.02</vPIS>
+          </PISAliq>
+        </PIS>
+        <COFINS>
+          <COFINSAliq>
+            <CST>01</CST>
+            <vBC>1.00</vBC>
+            <pCOFINS>7.60</pCOFINS>
+            <vCOFINS>0.08</vCOFINS>
+          </COFINSAliq>
+        </COFINS>
+      </imposto>
+    </det>
+    <transp>
+      <modFrete>0</modFrete>
+    </transp>
+    <pag>
+  <detPag>
+    <tPag>01</tPag>
+    <vPag>5.04</vPag>
+  </detPag>
+</pag>
+  </infNFe>
+</NFe>
