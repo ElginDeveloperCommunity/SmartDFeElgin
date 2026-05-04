@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "ebf931bd-6262-4e72-baed-083983d547f6",
+		"name": "API SmartNFCe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46661282",
+		"_collection_link": "https://jean-8061489.postman.co/workspace/Jean's-Workspace~fd69121e-510f-41ed-870d-69bc247b7985/collection/46661282-ebf931bd-6262-4e72-baed-083983d547f6?action=share&source=collection_link&creator=46661282"
+	},
+	"item": [
+		{
+			"name": "EmitirNotaUUID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('afterResponse', function () {\r",
+							"    const jsonBody = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"Chave NFCE\", jsonBody.chNFe);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Go-http-client/1.1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "3820",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip--f28321cfc4a70df49663d05f72ab38120fd493baf25e3fa8f8f3f2395d79",
+						"type": "text"
+					},
+					{
+						"key": "Content-Disposition",
+						"value": "form-data; name=\"xml\"; filename=\"document.xml\"",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "xml",
+							"type": "file",
+							"src": "/C:/Users/jean.santos/OneDrive - Elgin/Documentos/Produtos Elgin/SmartNFCe/2 - NFCe_NFe_demonstração/2 - e1Notas_freepascal/e1Notas_pascal_atual/venda_nfce.xml"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfce/xml/prod1234",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfce",
+						"xml",
+						"prod1234"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CancelarNota",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Go-http-client/1.1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "72",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"justificativa\":\"cancelado pelo emissor\",\"protocolo\":\"13525000008176835\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfce/{{Chave NFCE}}/cancel",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfce",
+						"{{Chave NFCE}}",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CancelamentoPorSubstituicao",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Go-http-client/1.1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "98",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"chCFeRef\":\"Chave da chCFeRef\",\"tpAutor\":3,\"xJust\":\"emitida com erro 'Justificatica'\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfce/{{Chave NFCE}}/cancellationBySubstitution",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfce",
+						"{{Chave NFCE}}",
+						"cancellationBySubstitution"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CartaDeSubstituição",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Go-http-client/1.1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "28",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"xCorrecao\":\"ncm invalido\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfe/{{Chave NFCE}}/electronicCorrectionLetter",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfe",
+						"{{Chave NFCE}}",
+						"electronicCorrectionLetter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InutilizarNumeracao",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Go-http-client/1.1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "162",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"ano\":\"25\",\"cnpj\":\"63238976000117\",\"justificativa\":\"sei lad adaemissao em contigencia\",\"numeroFinal\":29364,\"numeroInicial\":29364,\"serie\":102,\"tpAmb\":2,\"uf\":\"29\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfce/discard",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfce",
+						"discard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProcessamentoContigencia",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.44.1",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip, deflate, br",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfce/processamentocontigencia",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfce",
+						"processamentocontigencia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultaNota",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.44.1",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip, deflate, br",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfce/35251129720473000145656760000000031208888054",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfce",
+						"35251129720473000145656760000000031208888054"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultaStatusUUID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"protocolVersion": "http1"
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.44.1",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/gzip, deflate, br",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{FiscalBox}}/api/v1/nfce/authorization/status/prod12345",
+					"host": [
+						"{{FiscalBox}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"nfce",
+						"authorization",
+						"status",
+						"prod12345"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "fb9ff5c0-2777-4e94-988f-d910958d28db",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Token",
+			"value": ""
+		},
+		{
+			"key": "URL ",
+			"value": "http://localhost:3001"
+		},
+		{
+			"key": "Chave NFCE",
+			"value": ""
+		},
+		{
+			"key": "URL remote",
+			"value": ""
+		},
+		{
+			"key": "FiscalBox",
+			"value": ""
+		}
+	]
+}

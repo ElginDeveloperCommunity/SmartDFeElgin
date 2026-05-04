@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartNFCe | PDV API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #000000;
+            --sidebar-hover: #222222;
+            --sidebar-active: #ffffff;
+            --sidebar-text: #ffffff;
+            --sidebar-text-active: #000000;
+            
+            --main-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            
+            --accent: #000000;
+            --success: #22c55e;
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        aside {
+            width: 300px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border);
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header h1 span {
+            color: #666;
+            font-weight: 300;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 1rem 0.75rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            padding: 0.875rem 1rem;
+            margin-bottom: 0.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.935rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-item:hover {
+            background-color: var(--sidebar-hover);
+        }
+
+        .nav-item.active {
+            background-color: var(--sidebar-active);
+            color: var(--sidebar-text-active);
+        }
+
+        .nav-item .badge {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+
+        .nav-item.active .badge {
+            background: rgba(0, 0, 0, 0.1);
+            color: #000;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .top-bar {
+            background: #fff;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .config-trigger {
+            background: #f0f0f0;
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Forms & Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.935rem;
+            transition: all 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+        }
+
+        .btn-action {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-action:hover {
+            background: #222;
+            transform: translateY(-1px);
+        }
+
+        .btn-action:active {
+            transform: translateY(0);
+        }
+
+        /* Response View */
+        .response-container {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .response-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .response-body {
+            background: #000;
+            color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.815rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border: 1px solid #333;
+        }
+
+        /* Settings Modal */
+        #settings-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .settings-content {
+            background: #fff;
+            width: 450px;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        /* Loading */
+        .loader {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+            margin-left: 10px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom File Input */
+        .file-upload {
+            border: 2px dashed var(--border);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-upload:hover { border-color: #000; background: #fafafa; }
+        .file-upload p { font-size: 0.875rem; color: var(--text-muted); }
+        #file-name-display { font-weight: 700; color: #000; margin-top: 0.5rem; display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="sidebar-header">
+            <h1>SMART<span>PDV</span></h1>
+        </div>
+        <nav class="nav-list">
+            <li class="nav-item active" onclick="switchTab('tab-emitir', this)">
+                Emitir Nota <span class="badge">POST</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('tab-cancelar', this)">
+                Cancelar Nota <span class="badge">POST</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('tab-substituir', this)">
+                Cancel. Substituição <span class="badge">POST</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('tab-carta', this)">
+                Carta de Correção <span class="badge">POST</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('tab-inutilizar', this)">
+                Inutilizar Nums <span class="badge">POST</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('tab-consultar', this)">
+                Consultar Nota <span class="badge">GET</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('tab-status', this)">
+                Status UUID <span class="badge">GET</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('tab-contigencia', this)">
+                Process. Contigência <span class="badge">GET</span>
+            </li>
+        </nav>
+        <div style="padding: 1.5rem; border-top: 1px solid #333;">
+            <button class="config-trigger" style="width: 100%;" onclick="toggleSettings(true)">⚙ CONFIGURAÇÕES</button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <div class="top-bar">
+            <div id="active-breadcrumb" style="font-weight: 700; text-transform: uppercase; font-size: 0.75rem; color: #888;">
+                PDV / EMITIR NOTA
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="text-align: right;">
+                    <p style="font-size: 0.65rem; font-weight: 800; color: #aaa;">CHAVE NFCE ATIVA</p>
+                    <p id="top-chave-display" style="font-family: 'JetBrains Mono'; font-size: 0.75rem; font-weight: 500;">(Nenhuma)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            
+            <!-- EMITIR NOTA -->
+            <div id="tab-emitir" class="tab-content active">
+                <div class="card">
+                    <h2 class="card-title">Emitir Nota Fiscal (UUID)</h2>
+                    <div class="input-group">
+                        <label>UUID do Produto</label>
+                        <input type="text" id="emit-uuid" value="57cd2c7b-3106-4d81-9f31-cbfe15363ac9">
+                    </div>
+                    <div class="input-group">
+                        <label>Arquivo XML de Venda</label>
+                        <div class="file-upload" onclick="document.getElementById('xml-file').click()">
+                            <p>Clique ou arraste o arquivo .xml aqui</p>
+                            <span id="file-name-display">Nenhum arquivo capturado</span>
+                        </div>
+                        <input type="file" id="xml-file" hidden onchange="handleFile(this)">
+                    </div>
+                    <button class="btn-action" onclick="apiEmitir()">
+                        ENVIAR PARA SEFAZ <div class="loader" id="loader-emitir"></div>
+                    </button>
+                    <div class="response-container" id="res-box-emitir">
+                        <div class="response-status" id="res-status-emitir"></div>
+                        <pre class="response-body" id="res-body-emitir"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANCELAR NOTA -->
+            <div id="tab-cancelar" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Cancelamento de Nota</h2>
+                    <div class="input-group">
+                        <label>Chave NFCE</label>
+                        <input type="text" id="canc-chave" placeholder="Digite a chave da nota">
+                    </div>
+                    <div class="input-group">
+                        <label>Protocolo</label>
+                        <input type="text" id="canc-prot" value="135250001475224">
+                    </div>
+                    <div class="input-group">
+                        <label>Justificativa (Mín. 15 caracteres)</label>
+                        <input type="text" id="canc-just" value="cancelado pelo emissor">
+                    </div>
+                    <button class="btn-action" onclick="apiCancelar()">
+                        SOLICITAR CANCELAMENTO <div class="loader" id="loader-cancelar"></div>
+                    </button>
+                    <div class="response-container" id="res-box-cancelar">
+                        <div class="response-status" id="res-status-cancelar"></div>
+                        <pre class="response-body" id="res-body-cancelar"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANCELAMENTO POR SUBSTITUIÇÃO -->
+            <div id="tab-substituir" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Cancelamento por Substituição</h2>
+                    <div class="input-group">
+                        <label>Chave Atual</label>
+                        <input type="text" id="sub-chave-atual" placeholder="Chave da nota errada">
+                    </div>
+                    <div class="input-group">
+                        <label>Chave Substituta (chCFeRef)</label>
+                        <input type="text" id="sub-chave-ref" value="Chave da chCFeRef">
+                    </div>
+                    <div class="input-group">
+                        <label>Justificativa</label>
+                        <input type="text" id="sub-just" value="emitida com erro 'Justificatica'">
+                    </div>
+                    <button class="btn-action" onclick="apiSubstituir()">
+                        EXECUTAR SUBSTITUIÇÃO <div class="loader" id="loader-sub"></div>
+                    </button>
+                    <div class="response-container" id="res-box-sub">
+                        <div class="response-status" id="res-status-sub"></div>
+                        <pre class="response-body" id="res-body-sub"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARTA DE CORREÇÃO -->
+            <div id="tab-carta" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Carta de Correção Eletrônica</h2>
+                    <div class="input-group">
+                        <label>Chave NFCE</label>
+                        <input type="text" id="carta-chave" placeholder="Chave da nota">
+                    </div>
+                    <div class="input-group">
+                        <label>Texto da Correção</label>
+                        <textarea id="carta-txt" rows="3">ncm invalido</textarea>
+                    </div>
+                    <button class="btn-action" onclick="apiCarta()">
+                        ENVIAR CORREÇÃO <div class="loader" id="loader-carta"></div>
+                    </button>
+                    <div class="response-container" id="res-box-carta">
+                        <div class="response-status" id="res-status-carta"></div>
+                        <pre class="response-body" id="res-body-carta"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INUTILIZAR -->
+            <div id="tab-inutilizar" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Inutilizar Numeração</h2>
+                    <div class="input-group">
+                        <label>Payload da Requisição (JSON)</label>
+                        <textarea id="inut-json" rows="10" style="font-family: 'JetBrains Mono';">{
+  "ano": "25",
+  "cnpj": "63238976000117",
+  "justificativa": "emissao em contigencia",
+  "numeroFinal": 29364,
+  "numeroInicial": 29364,
+  "serie": 102,
+  "tpAmb": 2,
+  "uf": "29"
+}</textarea>
+                    </div>
+                    <button class="btn-action" onclick="apiInutilizar()">
+                        INUTILIZAR FAIXA <div class="loader" id="loader-inut"></div>
+                    </button>
+                    <div class="response-container" id="res-box-inut">
+                        <div class="response-status" id="res-status-inut"></div>
+                        <pre class="response-body" id="res-body-inut"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONSULTAR NOTA -->
+            <div id="tab-consultar" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Consultar Nota</h2>
+                    <div class="input-group">
+                        <label>Chave NFCE</label>
+                        <input type="text" id="cons-chave" value="35250829720473000145651020000001261957928225">
+                    </div>
+                    <button class="btn-action" onclick="apiConsultar()">
+                        CONSULTAR NA BASE <div class="loader" id="loader-cons"></div>
+                    </button>
+                    <div class="response-container" id="res-box-cons">
+                        <div class="response-status" id="res-status-cons"></div>
+                        <pre class="response-body" id="res-body-cons"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATUS UUID -->
+            <div id="tab-status" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Status por UUID de Autorização</h2>
+                    <div class="input-group">
+                        <label>UUID do Processamento</label>
+                        <input type="text" id="stat-uuid" value="57cd2c7b-3106-4d81-9f31-cbfe15363ac9">
+                    </div>
+                    <button class="btn-action" onclick="apiStatus()">
+                        VERIFICAR STATUS <div class="loader" id="loader-stat"></div>
+                    </button>
+                    <div class="response-container" id="res-box-stat">
+                        <div class="response-status" id="res-status-stat"></div>
+                        <pre class="response-body" id="res-body-stat"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTIGENCIA -->
+            <div id="tab-contigencia" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Processamento de Contingência</h2>
+                    <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 0.875rem;">
+                        Inicia o processamento de todas as notas fiscais emitidas em modo offline/contingência.
+                    </p>
+                    <button class="btn-action" onclick="apiContingencia()">
+                        INICIAR PROCESSAMENTO <div class="loader" id="loader-cont"></div>
+                    </button>
+                    <div class="response-container" id="res-box-cont">
+                        <div class="response-status" id="res-status-cont"></div>
+                        <pre class="response-body" id="res-body-cont"></pre>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SETTINGS MODAL -->
+    <div id="settings-overlay">
+        <div class="settings-content">
+            <h2 style="margin-bottom: 1.5rem;">Configurações Global</h2>
+            <div class="input-group">
+                <label>API Base URL</label>
+                <input type="text" id="cfg-url" value="http://localhost:3001">
+            </div>
+            <div class="input-group">
+                <label>Token de Acesso (Bearer)</label>
+                <input type="password" id="cfg-token" placeholder="Insira seu token">
+            </div>
+            <div class="input-group">
+                <label>Chave NFCE Ativa (Memória)</label>
+                <input type="text" id="cfg-chave" placeholder="Será preenchida automaticamente" oninput="updateGlobalChave(this.value)">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 2rem;">
+                <button class="btn-action" style="background: #000;" onclick="toggleSettings(false)">SALVAR</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let globalChave = "";
+
+        function switchTab(tabId, element) {
+            // Update Sidebar
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            // Update Breadcrumb
+            document.getElementById('active-breadcrumb').textContent = `PDV / ${element.textContent.split(' ')[0].toUpperCase()}`;
+
+            // Update Content
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function toggleSettings(show) {
+            document.getElementById('settings-overlay').style.display = show ? 'flex' : 'none';
+        }
+
+        function handleFile(input) {
+            const display = document.getElementById('file-name-display');
+            if (input.files && input.files[0]) {
+                display.textContent = input.files[0].name;
+            } else {
+                display.textContent = "Nenhum arquivo capturado";
+            }
+        }
+
+        function updateGlobalChave(val) {
+            globalChave = val;
+            document.getElementById('top-chave-display').textContent = val || "(Nenhuma)";
+            
+            // Auto fill other fields
+            ['canc-chave', 'sub-chave-atual', 'carta-chave', 'cons-chave'].forEach(id => {
+               const el = document.getElementById(id);
+               if(el) el.value = val;
+            });
+        }
+
+        async function executeCall(config) {
+            const { id, method, path, body, isFormData } = config;
+            const baseUrl = document.getElementById('cfg-url').value.replace(/\/$/, '');
+            const token = document.getElementById('cfg-token').value;
+            
+            // UI Refs
+            const loader = document.getElementById(`loader-${id}`);
+            const resBox = document.getElementById(`res-box-${id}`);
+            const resStatus = document.getElementById(`res-status-${id}`);
+            const resBody = document.getElementById(`res-body-${id}`);
+
+            loader.style.display = 'inline-block';
+            resBox.style.display = 'none';
+
+            try {
+                const headers = { 'Accept': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+                if (!isFormData) headers['Content-Type'] = 'application/json';
+
+                const response = await fetch(`${baseUrl}${path}`, {
+                    method,
+                    headers,
+                    body: isFormData ? body : (body ? JSON.stringify(body) : undefined)
+                });
+
+                const data = await response.json().catch(() => ({ msg: "Resposta não é JSON" }));
+
+                resStatus.innerHTML = `<span class="status-dot" style="background: ${response.ok ? 'var(--success)' : 'var(--error)'}"></span> ${response.status} ${response.statusText}`;
+                resBody.textContent = JSON.stringify(data, null, 2);
+                resBox.style.display = 'block';
+
+                if (data.chNFe) {
+                    updateGlobalChave(data.chNFe);
+                    document.getElementById('cfg-chave').value = data.chNFe;
+                }
+
+            } catch (error) {
+                resStatus.innerHTML = `<span class="status-dot" style="background: var(--error)"></span> FALHA NA CONEXÃO`;
+                resBody.textContent = error.message;
+                resBox.style.display = 'block';
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // API Action Wrappers
+        function apiEmitir() {
+            const file = document.getElementById('xml-file').files[0];
+            const uuid = document.getElementById('emit-uuid').value;
+            if(!file) return alert("Selecione um XML");
+            
+            const fd = new FormData();
+            fd.append('xml', file);
+            executeCall({ id: 'emitir', method: 'POST', path: `/api/v1/nfce/xml/${uuid}`, body: fd, isFormData: true });
+        }
+
+        function apiCancelar() {
+            const chave = document.getElementById('canc-chave').value;
+            executeCall({ id: 'cancelar', method: 'POST', path: `/api/v1/nfce/${chave}/cancel`, body: {
+                justificativa: document.getElementById('canc-just').value,
+                protocolo: document.getElementById('canc-prot').value
+            }});
+        }
+
+        function apiSubstituir() {
+            const chave = document.getElementById('sub-chave-atual').value;
+            executeCall({ id: 'sub', method: 'POST', path: `/api/v1/nfce/${chave}/cancellationBySubstitution`, body: {
+                chCFeRef: document.getElementById('sub-chave-ref').value,
+                tpAutor: 3,
+                xJust: document.getElementById('sub-just').value
+            }});
+        }
+
+        function apiCarta() {
+            const chave = document.getElementById('carta-chave').value;
+            executeCall({ id: 'carta', method: 'POST', path: `/api/v1/nfe/${chave}/electronicCorrectionLetter`, body: {
+                xCorrecao: document.getElementById('carta-txt').value
+            }});
+        }
+
+        function apiInutilizar() {
+            try {
+                const body = JSON.parse(document.getElementById('inut-json').value);
+                executeCall({ id: 'inut', method: 'POST', path: '/api/v1/nfce/discard', body: body });
+            } catch(e) { alert("JSON Inválido"); }
+        }
+
+        function apiConsultar() {
+            const chave = document.getElementById('cons-chave').value;
+            executeCall({ id: 'cons', method: 'GET', path: `/api/v1/nfce/${chave}` });
+        }
+
+        function apiStatus() {
+            const uuid = document.getElementById('stat-uuid').value;
+            executeCall({ id: 'stat', method: 'GET', path: `/api/v1/nfce/authorization/status/${uuid}` });
+        }
+
+        function apiContingencia() {
+            executeCall({ id: 'cont', method: 'GET', path: '/api/v1/nfce/processamentocontigencia' });
+        }
+    </script>
+</body>
+</html>
