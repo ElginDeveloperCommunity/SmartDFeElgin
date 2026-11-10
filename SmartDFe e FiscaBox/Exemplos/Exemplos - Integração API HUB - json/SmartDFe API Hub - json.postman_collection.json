@@ -1,0 +1,783 @@
+{
+  "info": {
+    "_postman_id": "d782218c-6890-497e-85f1-b6a7a1687577",
+    "name": "SmartDFe API Hub - json",
+    "description": "Colecao completa da API nativa do SmartDFe Hub (porta 8780). NFC-e (mod 65) e NF-e (mod 55): emitir, simular, consultar, XML, DANFE, cancelar, inutilizar e eventos.\n\nVariaveis de ambiente:\n\n- base = [http://127.0.0.1:8780/api/v1](http://127.0.0.1:8780/api/v1)\n    \n- token = seu token (multi-empresa)\n    \n- chave = preenchida automaticamente pelo 'emitir' (via test script)\n    \n\nContrato: {{base}}/openapi.json | Docs: {{base}}/docs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46661282",
+    "_collection_link": "https://go.postman.co/collection/46661282-d782218c-6890-497e-85f1-b6a7a1687577?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "1. Configuração",
+      "item": [
+        {
+          "name": "Servico e contrato",
+          "item": [
+            {
+              "name": "GET capacidades",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base}}/capacidades",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "capacidades"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET health",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base}}/health",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET openapi.json (contrato)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base}}/openapi.json",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "openapi.json"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET docs (pagina)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base}}/docs",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "docs"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Webhook",
+          "item": [
+            {
+              "name": "Configurar webhook",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base}}/webhook",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "webhook"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Consultar configuração",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base}}/webhook",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "webhook"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "SMTP",
+          "item": [
+            {
+              "name": "Consultar configuração SMTP",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base}}/smtp",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "smtp"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Configurar SMTP",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"smtp_host\":       \"smtp.gmail.com\",                  // Endereço do servidor SMTP\r\n  \"smtp_porta\":      465,                             // numero da porta configurada no smtp\r\n  \"smtp_usuario\":    \"botautomacaopedidos@gmail.com\", // Usuário no servidor SMTP\r\n  \"smtp_senha\":      \"ivbb ptpg ndfq uklm\",            // App Password\r\n  \"smtp_tls\":        false,                             // Conexão TLS\r\n  \"remetente_email\": \"botautomacaopedidos@gmail.com\",   // E-mail remetente\r\n  \"remetente_nome\":  \"Empresa Fiscal\",                  // Nome exibido no e-mail\r\n  \"assunto\":         \"Sua NFC-e nº {nNF}\",              // Assunto\r\n  \"ativo\":           true                               //SMTP Está habilitada?\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base}}/smtp",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "smtp"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Configurar Emitente",
+          "item": [
+            {
+              "name": "Configurar emitente",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"emitente\": {\r\n    \"CEP\": \"03679000\",\r\n    \"CNPJ\": \"29720473000145\",\r\n    \"CRT\": \"1\",\r\n    \"IE\": \"128237060114\",\r\n    \"UF\": \"SP\",\r\n    \"cMun\": \"3550308\",\r\n    \"cPais\": \"1058\",\r\n    \"cUF\": \"35\",\r\n    \"fone\": \"\",\r\n    \"nro\": \"871\",\r\n    \"xBairro\": \"VILA SAO FRANCISCO (ZONA LESTE)\",\r\n    \"xCpl\": \"\",\r\n    \"xFant\": \"29.720.473 FERNANDA SERAFIM ABRANTES\",\r\n    \"xLgr\": \"RUA JOAO JOSE DE QUEIROZ\",\r\n    \"xMun\": \"SAO PAULO\",\r\n    \"xNome\": \"29.720.473 FERNANDA SERAFIM ABRANTES\",\r\n    \"xPais\": \"Brasil\"\r\n  },\r\n  \"status\": \"ok\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base}}/config/emitente",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "config",
+                    "emitente"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Consultar configuração emitente",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base}}/config/emitente",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "config",
+                    "emitente"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. NFC-e (mod 65)",
+      "item": [
+        {
+          "name": "Emitir NFC-e",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var j = pm.response.json();\nif (j.chave) pm.collectionVariables.set('chave', j.chave);\npm.test('autorizado', function(){ pm.expect(j.status).to.eql('autorizado'); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ref\": \"NFE-{{$timestamp}}\",\n  \"ambiente\": \"homologacao\",\n  \"itens\": [\n    {\n      \"descricao\": \"Bolo de Limão\",\n      \"quantidade\": 2.0,\n      \"valor_unitario\": 2.86,\n      \"ncm\": \"22030000\",\n      \"cfop\": \"5102\",\n      \"gtin\": \"SEM GTIN\",\n      \"tributacao\": {\n        \"origem\": 0,\n        \"icms\": {\n          \"csosn\": \"400\"\n        },\n        \"pis\": {\n          \"cst\": \"99\",\n          \"aliquota\": 1.65\n        },\n        \"cofins\": {\n          \"cst\": \"01\",\n          \"aliquota\": 7.6\n        },\n        \"ibs_cbs\": {\n  \"cst\": \"000\",\n  \"cClassTrib\": \"000001\",\n  \"gIBSUF\": {\n    \"pIBSUF\": 0.10,\n    \"pRedAliq\": 50.00\n  },\n  \"gCBS\": {\n    \"pCBS\": 0.45,\n    \"pRedAliq\": 50.00\n  }\n}\n      }\n    }\n  ],\n  \"pagamentos\": [\n    {\n      \"forma\": \"dinheiro\",\n      \"valor\": 5.72,\n      \"bandeira\": \"01\",\n      \"cnpj_credenciadora\": \"45984642000100\",\n      \"autorizacao\": \"\",\n      \"integrado\": true\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base}}/nfce",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce"
+              ]
+            },
+            "description": "## Emitir NFC-e\n\nEmite uma **Nota Fiscal de Consumidor Eletrônica (NFC-e)** através da API SmartDFe Hub.\n\n**Endpoint:** `POST {{base}}/nfce`\n\n---\n\n### Headers\n\n| Header | Value |\n| --- | --- |\n| `Content-Type` | `application/json` |\n\n---\n\n### Request Body\n\nO corpo da requisição deve ser enviado em JSON com os seguintes campos:\n\n| Campo | Tipo | Descrição |\n| --- | --- | --- |\n| `ref` | string | Referência única do pedido. Suporta a variável dinâmica `{{$timestamp}}` para garantir unicidade. |\n| `ambiente` | string | Ambiente de emissão. Use `homologacao` para testes ou `producao` para emissão real. |\n| `itens` | array | Lista de itens da nota fiscal. |\n| `pagamentos` | array | Lista de formas de pagamento. |\n\n#### Objeto `itens[]`\n\n| Campo | Tipo | Descrição |\n| --- | --- | --- |\n| `descricao` | string | Descrição do produto. |\n| `quantidade` | number | Quantidade do item. |\n| `valor_unitario` | number | Valor unitário do item. |\n| `ncm` | string | Código NCM (Nomenclatura Comum do Mercosul) do produto. |\n| `cfop` | string | Código Fiscal de Operações e Prestações (CFOP). |\n| `gtin` | string | Código de barras GTIN do produto. Use `\"SEM GTIN\"` quando não houver. |\n| `tributacao.icms.csosn` | string | Código de Situação da Operação no Simples Nacional (CSOSN). |\n\n#### Objeto `pagamentos[]`\n\n| Campo | Tipo | Descrição |\n| --- | --- | --- |\n| `forma` | string | Forma de pagamento (ex: `dinheiro`, `cartao_credito`, `cartao_debito`, `pix`). |\n| `valor` | number | Valor pago nesta forma de pagamento. |\n\n---\n\n### Exemplo de Body\n\n``` json\n{\n  \"ref\": \"PEDIDO-{{$timestamp}}\",\n  \"ambiente\": \"homologacao\",\n  \"itens\": [\n    {\n      \"descricao\": \"REFRIGERANTE LATA 350ML\",\n      \"quantidade\": 1,\n      \"valor_unitario\": 5.0,\n      \"ncm\": \"22021000\",\n      \"cfop\": \"5102\",\n      \"gtin\": \"SEM GTIN\",\n      \"tributacao\": { \"icms\": { \"csosn\": \"102\" } }\n    }\n  ],\n  \"pagamentos\": [\n    { \"forma\": \"dinheiro\", \"valor\": 5.0 }\n  ]\n}\n\n ```\n\n---\n\n### Resposta de Sucesso\n\nQuando a NFC-e é autorizada, a resposta contém o campo `status` com o valor `\"autorizado\"` e o campo `chave` com a chave de acesso da nota. A chave é automaticamente salva na variável de coleção `chave` pelo script de testes.\n\n``` json\n{\n  \"status\": \"autorizado\",\n  \"chave\": \"...\"\n}\n\n ```\n\n---\n\n### Scripts de Teste\n\nApós a resposta, o script de testes executa automaticamente:\n\n- Salva o valor de `chave` na variável de coleção `chave` (se presente na resposta).\n    \n- Valida que o campo `status` da resposta é igual a `\"autorizado\"`."
+          },
+          "response": []
+        },
+        {
+          "name": "Cancelar NFC-e",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"justificativa\": \"cancelamento de teste via colecao postman\" }"
+            },
+            "url": {
+              "raw": "{{base}}/nfce/{{chave}}/cancelamento",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce",
+                "{{chave}}",
+                "cancelamento"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inutilizar faixa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"serie\":78, \"inicial\": 16, \"final\": 16, \"justificativa\": \"inutilizacao de teste via colecao postman\" }"
+            },
+            "url": {
+              "raw": "{{base}}/nfce/inutilizacao",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce",
+                "inutilizacao"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar NFC-e Sefaz",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfce/{{chave}}/situacao",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce",
+                "{{chave}}",
+                "situacao"
+              ]
+            },
+            "description": "## Consultar Situação de NFC-e na Sefaz\n\nConsulta a situação de uma **NFC-e (Nota Fiscal de Consumidor Eletrônica)** diretamente na Sefaz, retornando o status atual do documento fiscal na base de dados do fisco.\n\n### Endpoint\n\n```\nGET {{base}}/nfce/{{chave}}/situacao\n\n ```\n\n### Variáveis utilizadas\n\n| Variável | Descrição |\n| --- | --- |\n| `{{base}}` | URL base da API SmartDFe Hub |\n| `{{chave}}` | Chave de acesso da NFC-e (44 dígitos) |\n| `{{token}}` | Token de autenticação (utilizado nos headers de autenticação) |\n\n### Resposta de exemplo\n\n``` json\n{\n  \"chave\": \"35260729720473000145650270000012911872623920\",\n  \"sefaz\": {\n    \"codigo\": \"0\",\n    \"mensagem\": \"\"\n  },\n  \"situacao\": \"desconhecido\",\n  \"tipo\": \"nfce\"\n}\n\n ```\n\n### Campos da resposta\n\n| Campo | Tipo | Descrição |\n| --- | --- | --- |\n| `chave` | string | Chave de acesso da NFC-e consultada |\n| `sefaz.codigo` | string | Código de retorno da Sefaz |\n| `sefaz.mensagem` | string | Mensagem descritiva retornada pela Sefaz |\n| `situacao` | string | Situação atual do documento (ex: `autorizado`, `cancelado`, `desconhecido`) |\n| `tipo` | string | Tipo do documento fiscal (`nfce`) |"
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar NFC-e-Ref/uuid",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfce/{{chave}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce",
+                "{{chave}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "XML autorizado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfce/{{chave}}/xml",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce",
+                "{{chave}}",
+                "xml"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DANFE (PDF)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfce/{{chave}}/pdf",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce",
+                "{{chave}}",
+                "pdf"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Escpos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base fiscalbox}}/nfce/{{chave}}/escpos",
+              "host": [
+                "{{base fiscalbox}}"
+              ],
+              "path": [
+                "nfce",
+                "{{chave}}",
+                "escpos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. NF-e (mod 55)",
+      "item": [
+        {
+          "name": "Emitir NF-e",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var j = pm.response.json();",
+                  "if (j.chave) pm.collectionVariables.set('chave', j.chave);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ref\": \"NFE-NORMAL-{{$timestamp}}\",\n  \"ambiente\": \"homologacao\", \"natureza_operacao\": \"venda\",\n  \"finalidade\": \"normal\",\n  \"presenca\": \"presencial\",\n\n  \"destinatario\": {\n    \"documento\": \"45762835880\",\n    \"nome\": \"NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL\",\n    \"indicador_ie\": \"nao_contribuinte\",\n    \"endereco\": {\n      \"logradouro\": \"Rua das Flores\",\n      \"numero\": \"123\",\n      \"bairro\": \"Centro\",\n      \"codigo_municipio\": \"3550308\",\n      \"municipio\": \"São Paulo\",\n      \"uf\": \"SP\",\n      \"cep\": \"01001000\"\n    }\n  },\n\n  \"itens\": [\n    {\n      \"codigo\": \"123\",\n      \"descricao\": \"NFCe - Homologacao\",\n      \"quantidade\": 1,\n      \"valor_unitario\": 1.00,\n      \"unidade\": \"UN\",\n      \"gtin\": \"SEM GTIN\",\n      \"ncm\": \"22030000\",\n      \"cfop\": \"5102\",\n      \"cest\": \"0302100\",\n\n      \"tributacao\": {\n        \"origem\": \"0\",\n\n        \"icms\": {\n          \"csosn\": \"102\"\n        },\n\n        \"pis\": {\n          \"cst\": \"99\",\n          \"aliquota\": 1.65\n        },\n\n        \"cofins\": {\n          \"cst\": \"01\",\n          \"aliquota\": 7.60\n        },\n\n        \"ibs_cbs\": {\n          \"cst\": \"000\",\n          \"cClassTrib\": \"000001\",\n          \"pIBSUF\": 0.10,\n          \"pIBSMun\": 0.00,\n          \"pCBS\": 0.90,\n\n          \"uf\": {\n            \"pRedAliq\": 0,\n            \"pAliqEfet\": 0,\n            \"pDif\": 0,\n            \"vDif\": 0,\n            \"vDevTrib\": 0\n          },\n\n          \"mun\": {\n            \"pRedAliq\": 0,\n            \"pAliqEfet\": 0,\n            \"pDif\": 0,\n            \"vDif\": 0,\n            \"vDevTrib\": 0\n          },\n\n          \"cbs\": {\n            \"pRedAliq\": 0,\n            \"pAliqEfet\": 0,\n            \"pDif\": 0,\n            \"vDif\": 0,\n            \"vDevTrib\": 0\n          }\n        }\n      }\n    }\n  ],\n\n  \"pagamentos\": [\n    {\n      \"forma\": \"dinheiro\",\n      \"valor\": 100.00\n    }\n  ],\n\n  \"transporte\": {\n    \"modFrete\": \"9\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base}}/nfe",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe"
+              ]
+            },
+            "description": "Requer emitente CRT 3. A tributacao vai por item (CST + aliquota)."
+          },
+          "response": []
+        },
+        {
+          "name": "Cancelar NF-e",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"justificativa\": \"cancelamento de teste da nf-e em homologacao via colecao\" }"
+            },
+            "url": {
+              "raw": "{{base}}/nfe/{{chave}}/cancelamento",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "{{chave}}",
+                "cancelamento"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inutilizar faixa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"serie\":78, \"inicial\": 16, \"final\": 16, \"justificativa\": \"inutilizacao de teste via colecao postman\" }"
+            },
+            "url": {
+              "raw": "{{base}}/nfe/inutilizacao",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "inutilizacao"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar NF-e Sefaz",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfe/{{chave}}/situacao",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "{{chave}}",
+                "situacao"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar NF-e -Ref/uuid",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfe/{{chave}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "{{chave}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "XML autorizado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfe/{{chave}}/xml",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "{{chave}}",
+                "xml"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DANFE (PDF)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/nfe/{{chave}}/pdf",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "{{chave}}",
+                "pdf"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Evento - Carta de Correcao",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento\": \"carta_correcao\", \"correcao\": \"correcao de dados nao fiscais do documento em homologacao\" }"
+            },
+            "url": {
+              "raw": "{{base}}/nfe/{{chave}}/eventos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "{{chave}}",
+                "eventos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Evento - Manifestacao",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento\": \"manifestacao\", \"tipo\": \"ciencia\", \"justificativa\": \"\" }"
+            },
+            "url": {
+              "raw": "{{base}}/nfe/{{chave}}/eventos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfe",
+                "{{chave}}",
+                "eventos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Extras",
+      "item": [
+        {
+          "name": "Consultar IE por CNPJ",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/util/ie/29720473000145/?uf=sp",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "util",
+                "ie",
+                "29720473000145",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "uf",
+                  "value": "sp"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Simular NFC-e (pre-calculo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ambiente\": \"homologacao\",\n  \"itens\": [ { \"descricao\": \"PRODUTO\", \"quantidade\": 1, \"valor_unitario\": 10.00, \"ncm\": \"22021000\", \"cfop\": \"5102\", \"tributacao\": { \"auto\": true } } ]\n}"
+            },
+            "url": {
+              "raw": "{{base}}/nfce/simular",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "nfce",
+                "simular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base",
+      "value": "http://127.0.0.1:8780/api/v1"
+    },
+    {
+      "key": "chave",
+      "value": ""
+    },
+    {
+      "key": "base android",
+      "value": ""
+    },
+    {
+      "key": "base fiscalbox",
+      "value": ""
+    }
+  ]
+}
